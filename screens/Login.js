@@ -4,9 +4,6 @@ import * as firebase from 'firebase';
 import { Button, Block, Input, Text } from '../components';
 import { theme } from '../constants';
 
-const VALID_EMAIL = "contact@react-ui-kit.com";
-const VALID_PASSWORD = "subscribe";
-
 firebase.initializeApp({
   apiKey: "AIzaSyDZkYTSUiZZmrhLxPc-SWJKrKSxG8Lf7ds",
   authDomain: "easypointxpbr.firebaseapp.com",
@@ -23,15 +20,21 @@ export default class Login extends Component {
     password: '',
     isAuthenticated: false,
     loading: false,
-    errors: ''
+    errors: [],
   }
 
   login = async () =>  {
     const { email, password } = this.state;
     const { navigation } = this.props;
-      const user = await firebase.auth().signInWithEmailAndPassword(email, password);
-      this.setState({ isAuthenticated: true })
-      {this.state.isAuthenticated ? navigation.navigate('Browse'): navigation.navigate('SignUp')}
+
+    Keyboard.dismiss();
+    this.setState({ loading: true });
+
+    const user = await firebase.auth().signInWithEmailAndPassword(email, password);
+    this.setState({ isAuthenticated: true })
+    if (this.state.isAuthenticated == true) {
+      navigation.navigate('Browse')
+    }
   }
   render() { 
     const { navigation } = this.props;
