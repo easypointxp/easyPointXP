@@ -142,14 +142,8 @@ export default class SignUp extends Component {
                 <Text bold white center>Cadastre-se</Text>
               }
             </Button>
-
-            <Button onPress={() => navigation.navigate('Login')}>
-              <Text gray caption center style={{ textDecorationLine: 'underline' }}>
-                Voltar para o login
-              </Text>
-            </Button>
             <Button onPress={() => this.setState({ showTerms: true })}>
-              <Text center caption gray>Termos de uso</Text>
+              <Text gray caption center style={{ textDecorationLine: 'underline' }}>Termos de uso</Text>
             </Button>
             {this.renderTermsService()}
           </Block>

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Alert, ActivityIndicator, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native';
-
+import * as firebase from 'firebase';
 import { Button, Block, Input, Text } from '../components';
 import { theme } from '../constants';
 
-const VALID_EMAIL = "contact@react-ui-kit.com";
 
 export default class Forgot extends Component {
   state = {
-    email: VALID_EMAIL,
+    email: '',
     errors: [],
     loading: false,
   }
@@ -21,17 +20,13 @@ export default class Forgot extends Component {
     Keyboard.dismiss();
     this.setState({ loading: true });
 
+    firebase.auth().sendPasswordResetEmail(this.state.email)
     // check with backend API or with some static data
-    if (email !== VALID_EMAIL) {
-      errors.push('email');
-    }
-
     this.setState({ errors, loading: false });
 
     if (!errors.length) {
       Alert.alert(
-        'Password sent!',
-        'Please check you email.',
+        'Que tal checar seu email?'
         [
           {
             text: 'OK', onPress: () => {
