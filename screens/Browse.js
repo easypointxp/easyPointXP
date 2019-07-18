@@ -8,7 +8,7 @@ const { width } = Dimensions.get('window');
 
 class Browse extends Component {
   state = {
-    active: 'Products',
+    active: 'Marcações',
     categories: [],
   }
 
@@ -48,7 +48,7 @@ class Browse extends Component {
   render() {
     const { profile, navigation } = this.props;
     const { categories } = this.state;
-    const tabs = ['Products', 'Inspirations', 'Shop'];
+    const tabs = ['Marcações', 'Tarefas', 'Realizados'];
 
     return (
       <Block>
@@ -81,7 +81,7 @@ class Browse extends Component {
                     <Image source={category.image} />
                   </Badge>
                   <Text medium height={20}>{category.name}</Text>
-                  <Text gray caption>{category.count} products</Text>
+                  <Text gray caption>{category.count}   Marcações</Text>
                 </Card>
               </TouchableOpacity>
             ))}

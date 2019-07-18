@@ -2,48 +2,48 @@ const categories = [
   {
     id: 'plants',
     name: 'Plants',
-    tags: ['products', 'inspirations'],
+    tags: ['  Marcações', 'Tarefas'],
     count: 147,
     image: require('../assets/icons/plants.png')
   },
   {
     id: 'seeds',
     name: 'Seeds',
-    tags: ['products', 'shop'],
+    tags: ['  Marcações', 'Realizados'],
     count: 16,
     image: require('../assets/icons/seeds.png')
   },
   {
     id: 'flowers',
     name: 'Flowers',
-    tags: ['products', 'inspirations'],
+    tags: ['  Marcações', 'Tarefas'],
     count: 68,
     image: require('../assets/icons/flowers.png')
   },
   {
     id: 'sprayers',
     name: 'Sprayers',
-    tags: ['products', 'shop'],
+    tags: ['  Marcações', 'Realizados'],
     count: 17,
     image: require('../assets/icons/sprayers.png')
   },
   {
     id: 'pots',
     name: 'Pots',
-    tags: ['products', 'shop'],
+    tags: ['  Marcações', 'Realizados'],
     count: 47,
     image: require('../assets/icons/pots.png')
   },
   {
     id: 'fertilizers',
     name: 'fertilizers',
-    tags: ['products', 'shop'],
+    tags: ['  Marcações', 'Realizados'],
     count: 47,
     image: require('../assets/icons/fertilizers.png')
   },
 ];
 
-const products = [
+const   Marcações = [
   {
     id: 1, 
     name: '16 Best Plants That Thrive In Your Bedroom',
@@ -75,9 +75,9 @@ const explore = [
 ];
 
 const profile = {
-  username: 'react-ui-kit',
-  location: 'Europe',
-  email: 'contact@react-ui-kit.com',
+  username: 'Adicione seu nome',
+  location: 'Brasil',
+  email: 'email@gmail.com',
   avatar: require('../assets/images/avatar.png'),
   budget: 1000,
   monthly_cap: 5000,
@@ -88,6 +88,6 @@ const profile = {
 export {
   categories,
   explore,
-  products,
+    Marcações,
   profile,
 }

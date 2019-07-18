@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Image, StyleSheet, ScrollView, TextInput } from 'react-native'
 import Slider from 'react-native-slider';
-
+import { ImagePicker } from 'expo';
 import { Divider, Button, Block, Text, Switch } from '../components';
 import { theme, mocks } from '../constants';
+import { Permissions } from 'expo'
 
 class Settings extends Component {
   state = {
@@ -13,11 +14,31 @@ class Settings extends Component {
     newsletter: false,
     editing: null,
     profile: {},
+    pictureUrl: '',
+    status: null,
   }
 
+  permissionFlow = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    this.setState({ status });
+  }
+  
   componentDidMount() {
     this.setState({ profile: this.props.profile });
   }
+
+  pickImage = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    this.setState({ status });
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    if (!result.cancelled) {
+      this.onChangeText('pictureUrl', result.uri);
+    }
+  };
 
   handleEdit(name, text) {
     const { profile } = this.state;
@@ -47,13 +68,13 @@ class Settings extends Component {
   }
 
   render() {
-    const { profile, editing } = this.state;
+    const { profile, pictureUrl, editing } = this.state;
 
     return (
       <Block>
         <Block flex={false} row center space="between" style={styles.header}>
-          <Text h1 bold>Settings</Text>
-          <Button>
+          <Text h1 bold>Configurações</Text>
+          <Button onPress={this.pickImage}>
             <Image
               source={profile.avatar}
               style={styles.avatar}
@@ -65,7 +86,7 @@ class Settings extends Component {
           <Block style={styles.inputs}>
             <Block row space="between" margin={[10, 0]} style={styles.inputRow}>
               <Block>
-                <Text gray2 style={{ marginBottom: 10 }}>Username</Text>
+                <Text gray2 style={{ marginBottom: 10 }}>Nome</Text>
                 {this.renderEdit('username')}
               </Block>
               <Text medium secondary onPress={() => this.toggleEdit('username')}>
@@ -74,7 +95,7 @@ class Settings extends Component {
             </Block>
             <Block row space="between" margin={[10, 0]} style={styles.inputRow}>
               <Block>
-                <Text gray2 style={{ marginBottom: 10 }}>Location</Text>
+                <Text gray2 style={{ marginBottom: 10 }}>Cidade</Text>
                 {this.renderEdit('location')}
               </Block>
               <Text medium secondary onPress={() => this.toggleEdit('location')}>
@@ -128,7 +149,7 @@ class Settings extends Component {
 
           <Block style={styles.toggles}>
             <Block row center space="between" style={{ marginBottom: theme.sizes.base * 2 }}>
-              <Text gray2>Notifications</Text>
+              <Text gray2>Notificações</Text>
               <Switch
                 value={this.state.notifications}
                 onValueChange={value => this.setState({ notifications: value })}
