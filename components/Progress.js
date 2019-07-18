@@ -27,8 +27,8 @@ class Progress extends Component {
 }
 
 Progress.defaultProps = {
-  startColor: '#4F8DFD',
-  endColor: '#3FE4D4',
+  startColor: '#FFF59D',
+  endColor: '#FFEB3B',
   value: 0.75,
   opacity: 0.2,
 }

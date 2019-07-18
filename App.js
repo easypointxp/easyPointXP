@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppLoading, Asset } from 'expo';
 
 import Navigation from './navigation';
-import { Block, Firebase} from './components';
+import { Block } from './components';
 
 // import all used images
 const images = [

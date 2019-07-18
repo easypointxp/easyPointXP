@@ -1,44 +1,39 @@
 import React, { Component } from 'react'
 import { ActivityIndicator, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native'
-
+import * as firebase from 'firebase';
 import { Button, Block, Input, Text } from '../components';
 import { theme } from '../constants';
 
 const VALID_EMAIL = "contact@react-ui-kit.com";
 const VALID_PASSWORD = "subscribe";
 
+firebase.initializeApp({
+  apiKey: "AIzaSyDZkYTSUiZZmrhLxPc-SWJKrKSxG8Lf7ds",
+  authDomain: "easypointxpbr.firebaseapp.com",
+  databaseURL: "https://easypointxpbr.firebaseio.com",
+  projectId: "easypointxpbr",
+  storageBucket: "",
+  messagingSenderId: "371123852905",
+  appId: "1:371123852905:web:da7a49c5bc842383"
+});
+
 export default class Login extends Component {
   state = {
-    email: VALID_EMAIL,
-    password: VALID_PASSWORD,
-    errors: [],
+    email: '',
+    password: '',
+    isAuthenticated: false,
     loading: false,
+    errors: ''
   }
 
-  handleLogin() {
-    const { navigation } = this.props;
+  login = async () =>  {
     const { email, password } = this.state;
-    const errors = [];
-
-    Keyboard.dismiss();
-    this.setState({ loading: true });
-
-    // check with backend API or with some static data
-    if (email !== VALID_EMAIL) {
-      errors.push('email');
-    }
-    if (password !== VALID_PASSWORD) {
-      errors.push('password');
-    }
-
-    this.setState({ errors, loading: false });
-
-    if (!errors.length) {
-      navigation.navigate("Browse");
-    }
+    const { navigation } = this.props;
+      const user = await firebase.auth().signInWithEmailAndPassword(email, password);
+      this.setState({ isAuthenticated: true })
+      {this.state.isAuthenticated ? navigation.navigate('Browse'): navigation.navigate('SignUp')}
   }
-
-  render() {
+  render() { 
     const { navigation } = this.props;
     const { loading, errors } = this.state;
     const hasErrors = key => errors.includes(key) ? styles.hasErrors : null;
@@ -63,13 +58,12 @@ export default class Login extends Component {
               defaultValue={this.state.password}
               onChangeText={text => this.setState({ password: text })}
             />
-            <Button gradient onPress={() => this.handleLogin()}>
+            <Button gradient onPress={this.login}>
               {loading ?
                 <ActivityIndicator size="small" color="white" /> : 
                 <Text bold white center>Login</Text>
               }
             </Button>
-
             <Button onPress={() => navigation.navigate('Forgot')}>
               <Text gray caption center style={{ textDecorationLine: 'underline' }}>
                 Esqueceu sua senha?
