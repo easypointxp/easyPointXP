@@ -74,19 +74,16 @@ export default class SignUp extends Component {
     Keyboard.dismiss();
     this.setState({ loading: true });
 
-    // check with backend API or with some static data
-    // if (!email) errors.push('email');
-    // if (!password) errors.push('password');
-
-    this.setState({ errors, loading: false });
-
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    if (errors.length) {
+    if (!email) errors.push('email');
+    if (!password) errors.push('password');
+    if (password.length < 6) {
+      errors.push('password');
       Alert.alert(
-        'A senha deve possuir mais de 6 dígitos',
+        'Erro!',
+        'A senha deve possuir 6 digitos',
         [
           {
-            text: 'Tentar novamente', onPress: () => {
+            text: 'Continuar', onPress: () => {
               navigation.navigate('SignUp')
             }
           }
@@ -94,7 +91,11 @@ export default class SignUp extends Component {
         { cancelable: false }
       )
     }
-   else if (!errors.length) {
+    this.setState({ errors, loading: false });
+
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+  
+    if (!errors.length) {
       Alert.alert(
         'Sucesso!',
         'Sua conta foi criada',
