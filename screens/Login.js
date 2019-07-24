@@ -13,7 +13,7 @@ firebase.initializeApp({
   messagingSenderId: "371123852905",
   appId: "1:371123852905:web:da7a49c5bc842383"
 });
-
+const VALID_PASSWORD = "";
 export default class Login extends Component {
   state = {
     email: '',
@@ -26,14 +26,20 @@ export default class Login extends Component {
   login = async () =>  {
     const { email, password } = this.state;
     const { navigation } = this.props;
-
+    const errors = [];
+    
     Keyboard.dismiss();
     this.setState({ loading: true });
+
+    if (!email) errors.push('email');
+    if (password == VALID_PASSWORD) {
+      errors.push('password');
+    }
 
     const user = await firebase.auth().signInWithEmailAndPassword(email, password);
     this.setState({ isAuthenticated: true })
     if (this.state.isAuthenticated == true) {
-      navigation.navigate('Browse')
+     navigation.navigate('Browse')
     }
   }
   render() { 

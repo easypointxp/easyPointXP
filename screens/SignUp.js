@@ -72,7 +72,7 @@ export default class SignUp extends Component {
     const errors = [];
 
     Keyboard.dismiss();
-    this.setState({ loading: true });
+    this.setState({ loading: false });
 
     if (!email) errors.push('email');
     if (!password) errors.push('password');
